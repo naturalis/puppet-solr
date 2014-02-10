@@ -39,10 +39,11 @@ class solr::config(
 
   # download only if WEB-INF is not present and tgz file is not in /tmp:
   exec { 'solr-download':
+    path      =>  ['/usr/bin', '/usr/sbin', '/bin'],
     command   =>  "wget ${download_site}/${solr_version}/${file_name}",
     cwd       =>  '/tmp',
     creates   =>  "/tmp/${file_name}",
-    onlyif    =>  "/usr/bin/test ! -d ${solr_home}/WEB-INF && test ! -f /tmp/${file_name}",
+    onlyif    =>  "/usr/bin/test ! -d ${solr_home}/WEB-INF && /usr/bin/test ! -f /tmp/${file_name}",
     timeout   =>  0,
     require   => File[$solr_home],
   }
@@ -51,7 +52,7 @@ class solr::config(
     path      =>  ['/usr/bin', '/usr/sbin', '/bin'],
     command   =>  "tar xzvf ${file_name}",
     cwd       =>  '/tmp',
-    onlyif    =>  "/usr/bin/test -f /tmp/${file_name} && test ! -d /tmp/solr-${solr_version}",
+    onlyif    =>  "/usr/bin/test -f /tmp/${file_name} && /usr/bin/test ! -d /tmp/solr-${solr_version}",
     require   =>  Exec['solr-download'],
   }
 
