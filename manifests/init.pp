@@ -36,7 +36,8 @@
 # Copyright 2012-2013 Vamsee Kanakala, unless otherwise noted.
 #
 class solr (
-  $cores      = 'UNSET'
+  $cores        = 'UNSET',
+  $solr_version = '4.6.1',
 ) {
 
   include solr::params
