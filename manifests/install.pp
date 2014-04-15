@@ -28,7 +28,7 @@ class solr::install {
   # package { 'curl':
   #   ensure  => present,
   # }
-  ensure_packages('curl')
-  ensure_packages('wget')
+  ensure_packages(['curl','wget'])
+  #ensure_packages('wget')
 }
 
